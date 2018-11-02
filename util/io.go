@@ -2,6 +2,7 @@ package util
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
 )
@@ -16,6 +17,21 @@ func ReadFile(path string, onFileRead func(*os.File) error) error {
 	defer file.Close()
 
 	return onFileRead(file)
+}
+
+func ReadString(path string) (*string, error) {
+	buf := new(bytes.Buffer)
+	err := ReadFile(path, func(file *os.File) error {
+		_, err := buf.ReadFrom(file)
+		return err
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	content := buf.String()
+	return &content, nil
 }
 
 func ReadLines(path string, onEachLine func(string)) error {

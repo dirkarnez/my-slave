@@ -9,7 +9,8 @@ func main() {
 	inPath := "test.txt"
 	outPath := "out.txt"
 
-	err := impl.UniqueLines(inPath, outPath)
+	err := impl.ApiParamToCsField(inPath, outPath)
+	//err := impl.UniqueLines(inPath, outPath)
 	if err != nil {
 		log.Fatal(err)
 	}
