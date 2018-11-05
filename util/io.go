@@ -34,12 +34,15 @@ func ReadString(path string) (*string, error) {
 	return &content, nil
 }
 
-func ReadLines(path string, onEachLine func(string)) error {
+func ReadLines(path string, onEachLine func(string) error ) error {
 	return ReadFile(path, func(file *os.File) error {
 		scanner := bufio.NewScanner(file)
 
 		for scanner.Scan() {
-			onEachLine(scanner.Text())
+			err := onEachLine(scanner.Text())
+			if err != nil {
+				return err
+			}
 		}
 
 		return scanner.Err()

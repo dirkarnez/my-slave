@@ -9,8 +9,9 @@ import (
 func UniqueLines(inPath, outPath string) error {
 	uniqueLinesSet := container.NewHashSet(false)
 
-	err := util.ReadLines(inPath, func(line string) {
+	err := util.ReadLines(inPath, func(line string) error {
 		uniqueLinesSet.Add(line)
+		return nil
 	})
 
 	if err != nil {

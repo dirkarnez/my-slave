@@ -17,9 +17,11 @@ type Field struct {
 func ApiParamToCsField(inPath, outPath string) error {
 	re := regexp.MustCompile("([^=&?]+)=([^&]*)&?")
 	content, err := util.ReadString(inPath)
+
 	if err != nil {
 		return err
 	}
+
 	arr := re.FindAllStringSubmatch(*content, -1)
 
 	t := template.Must(template.New("csharpfield").Parse(slaveTemplate.CSharpField))
